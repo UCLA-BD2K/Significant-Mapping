@@ -21,6 +21,5 @@ A few more functionalities will make this tool even more fresh:
 1. Implement decade feature for PMID and searching options
 2. Implement feature to visualize at the same time both decade feature and standardized proportion feature
 3. Optimize entire algorithm for speed
-4. Instead of using country database, use country names that the ACCRs and user search yield
+4. Look into incidence/prevalance rates of major diseases to establish correlation between the mapping results and actual disease rates
 5. Improve user interface/appearance of app
-6. Look into incidence/prevalance rates of major diseases to establish correlation between the mapping results and actual disease rates
