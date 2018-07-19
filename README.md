@@ -1,4 +1,4 @@
-# HeartBD2K-Significant-Mapping
+# HeartBD2K" Significant Mapping
 This project is the culmination of two quarters' worth of effort at my internship at HeartBD2K, which resulted in an R Shiny App. The aim of this project was to access big data quickly and to visualize it. This app saved a lot of time in creating visualizations and exploring data. The app has multiple functionalities, as will be listed below.
 
 ## Purpose
