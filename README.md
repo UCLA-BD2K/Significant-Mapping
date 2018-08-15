@@ -2,7 +2,7 @@
 
 This project is an R Shiny App intended to provide a map visualization of the worldwide geographic distribution of clinical case reports.
 
-The initial version of this project was assembled and thoroughly tested by Kitu Komya.
+The initial version of this project was assembled and thoroughly tested by Kitu Komya. Additional contributions were provided by Clement Feyt and Joel Perez.
 
 ## Purpose
 This map performs the following functions, given our set of annotated clinical case reports (ACCRs):
