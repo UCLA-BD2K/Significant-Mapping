@@ -1,20 +1,32 @@
-# HeartBD2K Significant Mapping
-This project is the culmination of two quarters' worth of effort at my internship at HeartBD2K, which resulted in an R Shiny App. The aim of this project was to access big data quickly and to visualize it. This app saved a lot of time in creating visualizations and exploring data. The app has multiple functionalities, as will be listed below.
+# Significant Mapping for Clinical Case Reports
+
+This project is an R Shiny App intended to provide a map visualization of the worldwide geographic distribution of clinical case reports.
+
+The initial version of this project was assembled and thoroughly tested by Kitu Komya.
 
 ## Purpose
-The app streamlined a lot of data analyzing by being able to achieve the following:
-1. Using our 3000 annotated case reports (ACCRs), can map raw count of regions as well as significant regions (as determined by 2 proportion z-test in comparing the ACCRs to the 1.2 million total case report set) within each disease system using both US states and countries (on PUBMED, only the country name is available, so this project used text-mining extraction techniques from a previous project, named as Geographic Data in my GitHub repository, to mine the US states as well)
-2. Using ACCRs, can map by decade
-3. Can map by PMID, by searching the online PUBMED database
-4. Can map by search phrase, by searching the online PUBMED database
+This map performs the following functions, given our set of annotated clinical case reports (ACCRs):
+* Maps the raw count of regions as well as significant regions (as determined by 2 proportion z-test in comparing the ACCRs to a set of 1.2 million total clinical case reports) within each disease system using both US states and countries. Documents obtained through PubMed in MEDLINE format include only country name, so this project also incorporates text-mining extraction techniques to determine US states and resolve discrepancies.
+* Maps by decade.
 
-These efforts save immense time since now, we no longer need to manually, for instance, download all case reports that are related to "vascular septal defects," clean the data, find the regions of each case report, analyze which regions are significant, and then map them. At the click of a few buttons, we can explore an entire database worth of data!
+The app can also:
+* Map by specific PMID
+* Map by search phrase
+
+both by executing a PubMed query.
+
+These efforts save time, as the usual protocol is as follows: 
+1. Manually download all case reports that are related to a given search term or MeSH descriptor, e.g., "vascular septal defects" 
+2. Clean the data
+3. Find the regions of each case report
+4. Analyze which regions are significant
+5. Create a map
 
 ## Content
-I have included the ui.R and server.R files that correlate to both the front- and back-end of the project as well as necessary data files needed to run the script and sample screenshots of the website.
+The ui.R and server.R files correlate to both the front- and back-end of the project. Necessary data files are provided in the folder *data*. Sample screenshots are provided in the folder *screenshots*.
 
 ## Limitations
-This project shows only where case reports are most widely published, not necessarily incidence rate. To help normalize for countries that, in general, publish many case reports, I used the standardization technique, by comparing # of case reports/region as determined by the user search to the overall # of case reports/region of the entire 1.2 million case report database. However, the 1.2 million case repoort database is static, and will need to be constantly updated (which takes time to mine and extract regions from).
+This project shows only where case reports are most widely published, not necessarily incidence rate. To help normalize for countries that, in general, publish many case reports, the app use the standardization technique, by comparing the count of case reports per region as determined by the user search to the overall count of case reports per region of the full set of  clinical case reports. Note that the full case report set is static and does not reflect the most recent set of case reports currently available within MEDLINE.
 
 ## Future Work
 A few more functionalities will make this tool even more fresh:
