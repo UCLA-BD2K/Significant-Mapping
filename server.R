@@ -16,10 +16,7 @@ library(rentrez)
 library(XML)
 library(stringr)
 library(webshot) 
-
-# to do
-# fix pmid search
-# fix country names issue rip that will take time
+library(shinycssloaders)
 
 # load datasets
 load(file = "cleaned_accr.Rdata")
@@ -43,11 +40,19 @@ state <- map_data(map = "state")
 world <- map_data(map = "world")
 
 shinyServer(function(input, output) {
-
+  
   output$text1 <- renderText({
     if (input$disease != "phrase" || input$disease != "none")
     {
-      paste("You have chosen: ", input$disease)
+      # outputs names of all diseases selected 
+      i <- 1
+      paste("You have chosen: ")
+      repeat{
+        paste(input$disease[i], " and ")
+        i <- i+1
+        if(i > length(input$disease))
+          break
+      }
     }
     else if (input$disease == "phrase") # show phrase searching
     {
@@ -103,96 +108,31 @@ shinyServer(function(input, output) {
         accr <- accr[accr$decade == 2010, ]
       }
     }
-
-    if (input$disease == "Cancer ACCRs")
-    {
-      accr <- accr[accr$Cancer == 1, 22:23]
-    }
     
-    if (input$disease == "Nervous ACCRs")
-    {
-      accr <- accr[accr$`Nervous System Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "Cardiovascular ACCRs")
-    {
-      accr <- accr[accr$`Cardiovascular Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "Musculoskeletal and Rheumatological ACCRs")
-    {
-      accr <- accr[accr$`Musculoskeletal Diseases and Rheumatological Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "Digestive ACCRs")
-    {
-      accr <- accr[accr$`Digestive System Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "obst_gyn")
-    {
-      accr <- accr[accr$`Obstetrical and Gynecological Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "infectious")
-    {
-      accr <- accr[accr$`Infectious Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "resp")
-    {
-      accr <- accr[accr$`Respiratory Tract Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "hema")
-    {
-      accr <- accr[accr$`Hematologic Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "kid_uro")
-    {
-      accr <- accr[accr$`Kidney Diseases and Urologic Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "endo")
-    {
-      accr <- accr[accr$`Endocrine System Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "oral_max")
-    {
-      accr <- accr[accr$`Oral and Maxillofacial Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "oph")
-    {
-      accr <- accr[accr$`Ophthalmological Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "otor")
-    {
-      accr <- accr[accr$`Otorhinolaryngologic Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "skin")
-    {
-      accr <- accr[accr$`Skin Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "rare")
-    {
-      accr <- accr[accr$`Rare Diseases` == 1, 22:23]
-    }
-    
-    if (input$disease == "country_all")
+    if (all(input$disease == "All ACCRs"))
     {
       accr <- accr[ , 22:23]
+    } 
+    
+    else{
+    for (i in 1:length(input$disease)) {
+      
+      # gets one of the diseases selected 
+      current_disease <- input$disease[i]
+      
+      # creates subset of previous data set with all case reports that contain that specific disease
+      if(current_disease != "All ACCRs")
+      accr <- accr[accr[,current_disease] == 1,]
+    }
+      
+    # extracts country and state (is applicable) of all case reports that fit the requirements
+    accr <- accr[, 22:23]
     }
     
-    # return accr dataframe based on disease selected
+    # return accr dataframe based on diseases selected
     return(accr)
   })
-  
+   
   # dataframe of user's PMIDs
   df <- reactive({
     
